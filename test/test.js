@@ -19,9 +19,8 @@ PalettoTestCase.prototype.testStory3 = function () {
     var engine = new Engine();
     engine.initBoard();
     assertEquals(true, engine.pick(6, 1));
-    assertEquals(1, engine.getPlayerPions(1));
+    assertEquals(1, engine.getPlayerOnePions());
     assertEquals(35, engine.getBoardPions());
     var playerOneInventory = ['y'];
-
-    assertEquals(playerOneInventory.toString(), engine.getPlayerInventory(1).toString());
+    assertEquals(playerOneInventory.toString(), engine.getPlayerOneInventory());
 };

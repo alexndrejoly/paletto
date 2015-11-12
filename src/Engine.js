@@ -5,6 +5,8 @@ var Engine = function () {
     // private attributes and methods
     var _board = new Array(36);
     var _currentPlayer = 1;
+    var _boardPions = 0;
+    var _playerOneInventory = new Array();
 
     // public methods
     this.initBoard = function() {
@@ -14,6 +16,8 @@ var Engine = function () {
         _board[3] = 'b', _board[11] = 'b', _board[12] = 'b', _board[14] = 'b', _board[22] = 'b', _board[31] = 'b';
         _board[4] = 'r', _board[9] = 'r', _board[17] = 'r', _board[18] = 'r', _board[20] = 'r', _board[33] = 'r';
         _board[6] = 'y', _board[10] = 'y', _board[13] = 'y', _board[26] = 'y', _board[28] = 'y', _board[30] = 'y';
+
+        _boardPions = 36;
     };
 
     this.checkBoardDisposition = function () {
@@ -36,21 +40,29 @@ var Engine = function () {
 
     this.pick = function (row, column) {
         if ((row == 1 || row == 6) && (column == 1 || column == 6)) {
+
+            if(_currentPlayer == 1) {
+                _playerOneInventory.push(_board[(row - 1) * 6 + column - 1]);
+            }
+
+            _board[(row - 1) * 6 + column - 1] = '';
+            _boardPions--;
+
             return true;
         }
 
         return false;
     };
 
-    this.getPlayerInventory = function (player) {
-        return null;
+    this.getPlayerOneInventory = function () {
+        return _playerOneInventory.toString();
     };
 
-    this.getPlayerPions = function (player) {
-        return 0;
+    this.getPlayerOnePions = function () {
+        return _playerOneInventory.length;
     };
 
     this.getBoardPions = function () {
-        return 0;
+        return _boardPions;
     };
 };
