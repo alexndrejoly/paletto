@@ -32,4 +32,8 @@ var Engine = function () {
 
         return true;
     };
+
+    this.pick = function (row, column) {
+        return false;
+    };
 };
