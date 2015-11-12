@@ -4,6 +4,7 @@ var Engine = function () {
 
     // private attributes and methods
     var _board = new Array(36);
+    var _currentPlayer = 1;
 
     // public methods
     this.initBoard = function() {
@@ -34,6 +35,10 @@ var Engine = function () {
     };
 
     this.pick = function (row, column) {
+        if ((row == 1 || row == 6) && (column == 1 || column == 6)) {
+            return true;
+        }
+
         return false;
     };
 };
