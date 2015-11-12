@@ -41,4 +41,16 @@ var Engine = function () {
 
         return false;
     };
+
+    this.getPlayerInventory = function (player) {
+        return null;
+    };
+
+    this.getPlayerPions = function (player) {
+        return 0;
+    };
+
+    this.getBoardPions = function () {
+        return 0;
+    };
 };
