@@ -9,6 +9,62 @@ var Engine = function () {
     var _playerOneInventory = new Array();
     var _playerTwoInventory = new Array();
 
+    var checkPick = function (row, column) {
+
+        var piece = _board[(row - 1) * 6 + column - 1];
+        var position = (row - 1) * 6 + column - 1;
+
+        if ((row == 1 || row == 6) && (column == 1 || column == 6)) {
+            return true;
+        }
+
+        if (row == 1 && _board[position - 1] != '' && _board[position + 1] != '' && _board[position + 6] != '') {
+            return false;
+        }
+
+        if (row == 6 && _board[position - 1] != '' && _board[position + 1] != '' && _board[position - 6] != '') {
+            return false;
+        }
+
+        if(column == 1 && _board[position - 6] != '' && _board[position + 6] != '' && _board[position + 1] != '') {
+            return false;
+        }
+
+        if(column == 6 && _board[position - 6] != '' && _board[position + 6] != '' && _board[position - 1] != '') {
+            return false;
+        }
+
+        var piecesArround = 0;
+
+        if(_board[position - 1] != '') {
+            piecesArround++;
+        }
+        if(_board[position + 1] != '') {
+            piecesArround++;
+        }
+        if(_board[position - 6] != '') {
+            piecesArround++;
+        }
+        if(_board[position + 6] != '') {
+            piecesArround++;
+        }
+
+        if(piecesArround > 2) {
+            return false;
+        }
+
+        if((_board[position - 1] != '' && _board[position + 1] != '') ||
+            (_board[position - 6] != '' && _board[position + 6] != '') ||
+            (_board[position - 6] != '' && _board[position + 1] != '' && _board[position - 5] == '') ||
+            (_board[position + 6] != '' && _board[position + 1] != '' && _board[position + 7] == '') ||
+            (_board[position + 6] != '' && _board[position - 1] != '' && _board[position + 5] == '') ||
+            (_board[position - 6] != '' && _board[position - 1] != '' && _board[position - 7] == '')) {
+            return false;
+        }
+
+        return true;
+    };
+
     // public methods
     this.initBoard = function() {
         _board[2] = 'w', _board[5] = 'w', _board[7] = 'w', _board[15] = 'w', _board[23] = 'w', _board[24] = 'w';
@@ -40,21 +96,20 @@ var Engine = function () {
     };
 
     this.pick = function (row, column) {
-        if ((row == 1 || row == 6) && (column == 1 || column == 6)) {
-
-            if(_currentPlayer == 1) {
-                _playerOneInventory.push(_board[(row - 1) * 6 + column - 1]);
-            } else {
-                _playerTwoInventory.push(_board[(row - 1) * 6 + column - 1])
-            }
-
-            _board[(row - 1) * 6 + column - 1] = '';
-            _boardPions--;
-
-            return true;
+        if (!checkPick(row, column)) {
+            return false;
         }
 
-        return false;
+        if(_currentPlayer == 1) {
+            _playerOneInventory.push(_board[(row - 1) * 6 + column - 1]);
+        } else {
+            _playerTwoInventory.push(_board[(row - 1) * 6 + column - 1])
+        }
+
+        _board[(row - 1) * 6 + column - 1] = '';
+        _boardPions--;
+
+        return true;
     };
 
     this.getPlayerOneInventory = function () {

@@ -37,3 +37,14 @@ PalettoTestCase.prototype.testStory4 = function () {
     assertEquals(playerTwoInventory.toString(), engine.getPlayerTwoInventory());
     assertEquals(2, engine.getPlayerTwoPions());
 };
+
+PalettoTestCase.prototype.testStory5 = function () {
+    var engine = new Engine();
+    engine.initBoard();
+    assertEquals(true, engine.pick(6, 1));
+    assertEquals(2, engine.switchPlayer());
+    assertEquals(true, engine.pick(1, 1));
+    assertEquals(true, engine.pick(6, 6));
+    assertEquals(false, engine.pick(3, 3));
+    assertEquals(false, engine.pick(1, 5));
+};
