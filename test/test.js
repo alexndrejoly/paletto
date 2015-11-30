@@ -24,3 +24,16 @@ PalettoTestCase.prototype.testStory3 = function () {
     var playerOneInventory = ['y'];
     assertEquals(playerOneInventory.toString(), engine.getPlayerOneInventory());
 };
+
+PalettoTestCase.prototype.testStory4 = function () {
+    var engine = new Engine();
+    engine.initBoard();
+    assertEquals(true, engine.pick(6, 1));
+    assertEquals(2, engine.switchPlayer());
+    assertEquals(true, engine.pick(1, 1));
+    assertEquals(true, engine.pick(6, 6));
+
+    var playerTwoInventory = ['d', 'd'];
+    assertEquals(playerTwoInventory.toString(), engine.getPlayerTwoInventory());
+    assertEquals(2, engine.getPlayerTwoPions());
+};

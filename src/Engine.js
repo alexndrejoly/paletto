@@ -7,6 +7,7 @@ var Engine = function () {
     var _currentPlayer = 1;
     var _boardPions = 0;
     var _playerOneInventory = new Array();
+    var _playerTwoInventory = new Array();
 
     // public methods
     this.initBoard = function() {
@@ -43,6 +44,8 @@ var Engine = function () {
 
             if(_currentPlayer == 1) {
                 _playerOneInventory.push(_board[(row - 1) * 6 + column - 1]);
+            } else {
+                _playerTwoInventory.push(_board[(row - 1) * 6 + column - 1])
             }
 
             _board[(row - 1) * 6 + column - 1] = '';
@@ -58,11 +61,24 @@ var Engine = function () {
         return _playerOneInventory.toString();
     };
 
+    this.getPlayerTwoInventory = function () {
+        return _playerTwoInventory.toString();
+    };
+
     this.getPlayerOnePions = function () {
         return _playerOneInventory.length;
     };
 
+    this.getPlayerTwoPions = function () {
+        return _playerTwoInventory.length;
+    };
+
     this.getBoardPions = function () {
         return _boardPions;
+    };
+
+    this.switchPlayer = function () {
+        _currentPlayer = _currentPlayer == 1 ? 2 : 1;
+        return _currentPlayer;
     };
 };
